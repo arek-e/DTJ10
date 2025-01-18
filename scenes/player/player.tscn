@@ -1,6 +1,6 @@
 [gd_scene load_steps=5 format=3 uid="uid://c22mrd8bbhmcp"]
 
-[ext_resource type="Script" path="res://scenes/player.gd" id="1_a6jbn"]
+[ext_resource type="Script" path="res://scenes/player/player.gd" id="1_a6jbn"]
 [ext_resource type="Texture2D" uid="uid://cc7o7t0ramd6y" path="res://assets/player/robot.webp" id="2_td3eb"]
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_0j0x8"]
