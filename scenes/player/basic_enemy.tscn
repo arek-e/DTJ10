@@ -1,16 +1,18 @@
-[gd_scene load_steps=14 format=3 uid="uid://c3u8t2ip2he0x"]
+[gd_scene load_steps=25 format=3 uid="uid://c3u8t2ip2he0x"]
 
 [ext_resource type="Script" path="res://health_component.gd" id="1_c30qc"]
+[ext_resource type="Script" path="res://scenes/player/basic_enemy.gd" id="1_th8qe"]
 [ext_resource type="PackedScene" uid="uid://jdthwoslg0wu" path="res://scenes/player/hitbox_component.tscn" id="2_ubqgg"]
 [ext_resource type="Texture2D" uid="uid://l2dpxdrtlh4j" path="res://assets/player/Jester.png" id="3_1vm0h"]
+[ext_resource type="BehaviorTree" uid="uid://mi7qmrmk8dtt" path="res://ai/trees/chase_player.tres" id="5_hq575"]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_l6wwm"]
+radius = 8.25
+height = 17.5
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_qthg3"]
 radius = 9.0
 height = 26.0
-
-[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_l6wwm"]
-radius = 6.0
-height = 12.0
 
 [sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_hdd7c"]
 blend_mode = 2
@@ -39,6 +41,38 @@ region = Rect2(128, 0, 32, 32)
 atlas = ExtResource("3_1vm0h")
 region = Rect2(160, 0, 32, 32)
 
+[sub_resource type="AtlasTexture" id="AtlasTexture_2vcyq"]
+atlas = ExtResource("3_1vm0h")
+region = Rect2(0, 64, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_w01tr"]
+atlas = ExtResource("3_1vm0h")
+region = Rect2(32, 64, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_5vgt2"]
+atlas = ExtResource("3_1vm0h")
+region = Rect2(64, 64, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_dtwxf"]
+atlas = ExtResource("3_1vm0h")
+region = Rect2(96, 64, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_tut5y"]
+atlas = ExtResource("3_1vm0h")
+region = Rect2(0, 32, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_rc4ej"]
+atlas = ExtResource("3_1vm0h")
+region = Rect2(32, 32, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_gofr3"]
+atlas = ExtResource("3_1vm0h")
+region = Rect2(64, 32, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_dhci6"]
+atlas = ExtResource("3_1vm0h")
+region = Rect2(96, 32, 32, 32)
+
 [sub_resource type="SpriteFrames" id="SpriteFrames_say3i"]
 animations = [{
 "frames": [{
@@ -61,12 +95,54 @@ animations = [{
 "texture": SubResource("AtlasTexture_tkmoa")
 }],
 "loop": true,
-"name": &"default",
+"name": &"idle",
+"speed": 12.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_2vcyq")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_w01tr")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_5vgt2")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_dtwxf")
+}],
+"loop": true,
+"name": &"run_left",
+"speed": 12.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_tut5y")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_rc4ej")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_gofr3")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_dhci6")
+}],
+"loop": true,
+"name": &"run_right",
 "speed": 12.0
 }]
 
+[sub_resource type="BlackboardPlan" id="BlackboardPlan_3godj"]
+
 [node name="Enemy" type="CharacterBody2D"]
 scale = Vector2(4, 4)
+collision_mask = 30
+script = ExtResource("1_th8qe")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(-0.75, 4.5)
+shape = SubResource("CapsuleShape2D_l6wwm")
 
 [node name="HitboxComponent" parent="." node_paths=PackedStringArray("health_component") instance=ExtResource("2_ubqgg")]
 position = Vector2(1.92388, 9.71189)
@@ -76,10 +152,6 @@ health_component = NodePath("../HealthComponent")
 position = Vector2(-2.92388, -8.71189)
 shape = SubResource("CapsuleShape2D_qthg3")
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2(-1, 10)
-shape = SubResource("CapsuleShape2D_l6wwm")
-
 [node name="HealthComponent" type="Node2D" parent="."]
 script = ExtResource("1_c30qc")
 
@@ -87,6 +159,11 @@ script = ExtResource("1_c30qc")
 texture_filter = 1
 material = SubResource("CanvasItemMaterial_hdd7c")
 sprite_frames = SubResource("SpriteFrames_say3i")
-frame_progress = 0.847142
+animation = &"idle"
+frame_progress = 0.47594
+
+[node name="BTPlayer" type="BTPlayer" parent="."]
+behavior_tree = ExtResource("5_hq575")
+blackboard_plan = SubResource("BlackboardPlan_3godj")
 
 [editable path="HitboxComponent"]

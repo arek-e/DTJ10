@@ -15,4 +15,10 @@ script = ExtResource("1_y18lm")
 position = Vector2(94, 562)
 
 [node name="Enemy" parent="Level" instance=ExtResource("4_60a8s")]
-position = Vector2(846, 526)
+position = Vector2(712, 490)
+
+[node name="Enemy2" parent="Level" instance=ExtResource("4_60a8s")]
+position = Vector2(880, 496)
+
+[node name="Enemy3" parent="Level" instance=ExtResource("4_60a8s")]
+position = Vector2(1108, 493)
