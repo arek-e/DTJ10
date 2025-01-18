@@ -1,4 +1,4 @@
-[gd_scene load_steps=13 format=3 uid="uid://c22mrd8bbhmcp"]
+[gd_scene load_steps=14 format=3 uid="uid://c22mrd8bbhmcp"]
 
 [ext_resource type="Script" path="res://scenes/player/player.gd" id="1_a6jbn"]
 [ext_resource type="Texture2D" uid="uid://l2dpxdrtlh4j" path="res://assets/player/Jester.png" id="2_i42md"]
@@ -78,11 +78,15 @@ _data = {
 "run_right": SubResource("Animation_n6llq")
 }
 
+[sub_resource type="AnimationNodeTimeScale" id="AnimationNodeTimeScale_qen4w"]
+
 [sub_resource type="AnimationNodeBlendTree" id="AnimationNodeBlendTree_p6gp4"]
 nodes/PlayerStates/node = ExtResource("3_0mica")
 nodes/PlayerStates/position = Vector2(140, 80)
-nodes/output/position = Vector2(520, 100)
-node_connections = [&"output", 0, &"PlayerStates"]
+nodes/TimeScale/node = SubResource("AnimationNodeTimeScale_qen4w")
+nodes/TimeScale/position = Vector2(400, 20)
+nodes/output/position = Vector2(600, 120)
+node_connections = [&"TimeScale", 0, &"PlayerStates", &"output", 0, &"TimeScale"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_ht1ln"]
 size = Vector2(20, 24)
@@ -113,6 +117,7 @@ advance_expression_base_node = NodePath("..")
 anim_player = NodePath("../AnimationPlayer")
 parameters/PlayerStates/Idle/blend_position = Vector2(0, 0)
 parameters/PlayerStates/Run/blend_position = Vector2(0, 0)
+parameters/TimeScale/scale = 1.0
 
 [node name="PlayerAnimation" type="Node2D" parent="." node_paths=PackedStringArray("animation_tree")]
 script = ExtResource("3_oeyhq")
