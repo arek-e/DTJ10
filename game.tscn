@@ -1,8 +1,9 @@
-[gd_scene load_steps=4 format=3 uid="uid://chv57a4rb7b8s"]
+[gd_scene load_steps=5 format=3 uid="uid://chv57a4rb7b8s"]
 
 [ext_resource type="Script" path="res://game.gd" id="1_y18lm"]
 [ext_resource type="PackedScene" uid="uid://c0ko6b3dpftwo" path="res://scenes/level/level.tscn" id="2_1277r"]
 [ext_resource type="PackedScene" uid="uid://c22mrd8bbhmcp" path="res://scenes/player/player.tscn" id="3_s7hny"]
+[ext_resource type="PackedScene" uid="uid://c3u8t2ip2he0x" path="res://scenes/player/basic_enemy.tscn" id="4_60a8s"]
 
 [node name="Game" type="Node"]
 process_mode = 3
@@ -12,3 +13,6 @@ script = ExtResource("1_y18lm")
 
 [node name="Player" parent="Level" instance=ExtResource("3_s7hny")]
 position = Vector2(94, 562)
+
+[node name="Enemy" parent="Level" instance=ExtResource("4_60a8s")]
+position = Vector2(846, 526)
