@@ -1,11 +1,95 @@
-[gd_scene load_steps=4 format=3 uid="uid://c22mrd8bbhmcp"]
+[gd_scene load_steps=14 format=3 uid="uid://c22mrd8bbhmcp"]
 
 [ext_resource type="Script" path="res://scenes/player/player.gd" id="1_a6jbn"]
+[ext_resource type="Texture2D" uid="uid://l2dpxdrtlh4j" path="res://assets/player/Jester.png" id="2_i42md"]
+[ext_resource type="AnimationNodeStateMachine" uid="uid://dukajdeqyb5sy" path="res://scenes/player/player_animation_state_tree.tres" id="3_0mica"]
+[ext_resource type="Script" path="res://scenes/player/player_animation.gd" id="3_oeyhq"]
+
+[sub_resource type="Animation" id="Animation_m56vv"]
+resource_name = "Idle"
+length = 0.6
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4, 0.5),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [0, 1, 2, 3, 4, 5]
+}
+
+[sub_resource type="Animation" id="Animation_ivu46"]
+resource_name = "run_left"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 1,
+"values": [12, 13, 14, 15]
+}
+
+[sub_resource type="Animation" id="Animation_n6llq"]
+resource_name = "run_right"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 1,
+"values": [6, 7, 8, 9]
+}
+
+[sub_resource type="Animation" id="Animation_scgse"]
+resource_name = "jump"
+
+[sub_resource type="Animation" id="Animation_gj4rf"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_0j0x8"]
+_data = {
+"Idle": SubResource("Animation_m56vv"),
+"RESET": SubResource("Animation_gj4rf"),
+"jump": SubResource("Animation_scgse"),
+"run_left": SubResource("Animation_ivu46"),
+"run_right": SubResource("Animation_n6llq")
+}
+
+[sub_resource type="AnimationNodeTimeScale" id="AnimationNodeTimeScale_qen4w"]
+
+[sub_resource type="AnimationNodeBlendTree" id="AnimationNodeBlendTree_p6gp4"]
+nodes/PlayerStates/node = ExtResource("3_0mica")
+nodes/PlayerStates/position = Vector2(140, 80)
+nodes/TimeScale/node = SubResource("AnimationNodeTimeScale_qen4w")
+nodes/TimeScale/position = Vector2(400, 20)
+nodes/output/position = Vector2(600, 120)
+node_connections = [&"TimeScale", 0, &"PlayerStates", &"output", 0, &"TimeScale"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_ht1ln"]
-size = Vector2(53.5, 58)
+size = Vector2(20, 24)
 
 [node name="Player" type="CharacterBody2D"]
 collision_mask = 30
@@ -17,25 +101,34 @@ target_position = Vector2(0, 6)
 collision_mask = 8
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
-position = Vector2(0, -14)
-hframes = 8
-vframes = 8
+position = Vector2(0, -13)
+texture = ExtResource("2_i42md")
+hframes = 6
+vframes = 3
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 libraries = {
 "": SubResource("AnimationLibrary_0j0x8")
 }
 
+[node name="AnimationTree" type="AnimationTree" parent="."]
+tree_root = SubResource("AnimationNodeBlendTree_p6gp4")
+advance_expression_base_node = NodePath("..")
+anim_player = NodePath("../AnimationPlayer")
+parameters/PlayerStates/Idle/blend_position = Vector2(0, 0)
+parameters/PlayerStates/Run/blend_position = Vector2(0, 0)
+parameters/TimeScale/scale = 1.0
+
+[node name="PlayerAnimation" type="Node2D" parent="." node_paths=PackedStringArray("animation_tree")]
+script = ExtResource("3_oeyhq")
+animation_tree = NodePath("../AnimationTree")
+
 [node name="Camera" type="Camera2D" parent="."]
-position = Vector2(0, -28)
-offset = Vector2(0, 50)
-limit_left = -715
-limit_top = -250
-limit_right = 1425
-limit_bottom = 690
+position = Vector2(0, -21)
+offset = Vector2(0, -40)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2(1, -15)
+position = Vector2(0, -12)
 shape = SubResource("RectangleShape2D_ht1ln")
 
 [node name="UI" type="CanvasLayer" parent="."]

@@ -1,0 +1,46 @@
+[gd_resource type="AnimationNodeStateMachine" load_steps=10 format=3 uid="uid://dukajdeqyb5sy"]
+
+[ext_resource type="AnimationNodeBlendSpace2D" uid="uid://b6r54kwxwaxxp" path="res://scenes/player/player_run_blend.tres" id="1_dvqvm"]
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_1w38i"]
+animation = &"Idle"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_df1d4"]
+animation = &"Idle"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_db3h0"]
+animation = &"Idle"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_65kon"]
+animation = &"Idle"
+
+[sub_resource type="AnimationNodeBlendSpace2D" id="AnimationNodeBlendSpace2D_2t8pc"]
+blend_point_0/node = SubResource("AnimationNodeAnimation_1w38i")
+blend_point_0/pos = Vector2(0, 1)
+blend_point_1/node = SubResource("AnimationNodeAnimation_df1d4")
+blend_point_1/pos = Vector2(1, 0)
+blend_point_2/node = SubResource("AnimationNodeAnimation_db3h0")
+blend_point_2/pos = Vector2(0, -1)
+blend_point_3/node = SubResource("AnimationNodeAnimation_65kon")
+blend_point_3/pos = Vector2(-1, 0)
+blend_mode = 2
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_1m2bo"]
+advance_mode = 2
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_2gbhc"]
+advance_mode = 2
+advance_expression = "!velocity"
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_5ij8d"]
+advance_mode = 2
+advance_expression = "velocity"
+
+[resource]
+states/End/position = Vector2(551, 100)
+states/Idle/node = SubResource("AnimationNodeBlendSpace2D_2t8pc")
+states/Idle/position = Vector2(371, 164)
+states/Run/node = ExtResource("1_dvqvm")
+states/Run/position = Vector2(371, 37)
+states/Start/position = Vector2(188, 100)
+transitions = ["Start", "Run", SubResource("AnimationNodeStateMachineTransition_1m2bo"), "Run", "Idle", SubResource("AnimationNodeStateMachineTransition_2gbhc"), "Idle", "Run", SubResource("AnimationNodeStateMachineTransition_5ij8d")]
