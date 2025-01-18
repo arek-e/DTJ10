@@ -1,0 +1,93 @@
+[gd_scene load_steps=15 format=3 uid="uid://c3u8t2ip2he0x"]
+
+[ext_resource type="Script" path="res://health_component.gd" id="1_c30qc"]
+[ext_resource type="Script" path="res://hitbox_component.gd" id="2_rupoe"]
+[ext_resource type="PackedScene" uid="uid://jdthwoslg0wu" path="res://scenes/player/hitbox_component.tscn" id="2_ubqgg"]
+[ext_resource type="Texture2D" uid="uid://l2dpxdrtlh4j" path="res://assets/player/Jester.png" id="3_1vm0h"]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_qthg3"]
+radius = 9.0
+height = 26.0
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_l6wwm"]
+radius = 6.0
+height = 12.0
+
+[sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_hdd7c"]
+blend_mode = 2
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_r5y7b"]
+atlas = ExtResource("3_1vm0h")
+region = Rect2(0, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_tqrjj"]
+atlas = ExtResource("3_1vm0h")
+region = Rect2(32, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_5oabb"]
+atlas = ExtResource("3_1vm0h")
+region = Rect2(64, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_li0bj"]
+atlas = ExtResource("3_1vm0h")
+region = Rect2(96, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_y2jn4"]
+atlas = ExtResource("3_1vm0h")
+region = Rect2(128, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_tkmoa"]
+atlas = ExtResource("3_1vm0h")
+region = Rect2(160, 0, 32, 32)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_say3i"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_r5y7b")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_tqrjj")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_5oabb")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_li0bj")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_y2jn4")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_tkmoa")
+}],
+"loop": true,
+"name": &"default",
+"speed": 12.0
+}]
+
+[node name="Enemy" type="CharacterBody2D"]
+scale = Vector2(4, 4)
+script = ExtResource("2_rupoe")
+
+[node name="HitboxComponent" parent="." instance=ExtResource("2_ubqgg")]
+position = Vector2(1.92388, 9.71189)
+
+[node name="CollisionShape2D" parent="HitboxComponent" index="0"]
+position = Vector2(-2.92388, -8.71189)
+shape = SubResource("CapsuleShape2D_qthg3")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(-1, 10)
+shape = SubResource("CapsuleShape2D_l6wwm")
+
+[node name="HealthComponent" type="Node2D" parent="."]
+script = ExtResource("1_c30qc")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+texture_filter = 1
+material = SubResource("CanvasItemMaterial_hdd7c")
+sprite_frames = SubResource("SpriteFrames_say3i")
+frame_progress = 0.847142
+
+[editable path="HitboxComponent"]
