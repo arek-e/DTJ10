@@ -1,6 +1,11 @@
-[gd_scene load_steps=2 format=3 uid="uid://c0ko6b3dpftwo"]
+[gd_scene load_steps=3 format=4 uid="uid://c0ko6b3dpftwo"]
 
 [ext_resource type="Script" path="res://scenes/level/level.gd" id="1_5agfo"]
+[ext_resource type="TileSet" uid="uid://pt3uoc5siw5i" path="res://scenes/level/tileset.tres" id="2_ok840"]
 
 [node name="Level" type="Node2D"]
 script = ExtResource("1_5agfo")
+
+[node name="TileMap" type="TileMapLayer" parent="."]
+tile_map_data = PackedByteArray("AAAAAAkAAAABAAAAAAABAAkAAAAAAAAAAAACAAkAAAAAAAAAAAADAAkAAAAAAAAAAAAEAAkAAAABAAAAAAAFAAkAAAAAAAAAAAAGAAkAAAABAAAAAAAHAAkAAAAAAAAAAAAIAAkAAAABAAAAAAAJAAkAAAAAAAAAAAAKAAkAAAABAAAAAAALAAkAAAABAAAAAAAMAAkAAAAAAAAAAAANAAkAAAAAAAAAAAAOAAkAAAAAAAAAAAAPAAkAAAAEAAMAAAAQAAkAAAABAAAAAAARAAkAAAABAAAAAAAPAAgAAAAEAAEAAAAPAAcAAAAEAAAAAAAPAAYAAAAEAAEAAAAPAAUAAAAEAAAAAAA=")
+tile_set = ExtResource("2_ok840")
