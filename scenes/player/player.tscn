@@ -30,11 +30,7 @@ libraries = {
 
 [node name="Camera" type="Camera2D" parent="."]
 position = Vector2(0, -21)
-offset = Vector2(0, 50)
-limit_left = -715
-limit_top = -250
-limit_right = 1425
-limit_bottom = 690
+offset = Vector2(0, -40)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(0, -12)
