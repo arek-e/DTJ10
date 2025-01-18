@@ -1,0 +1,18 @@
+[gd_scene load_steps=4 format=3 uid="uid://n2jsqn2212aw"]
+
+[ext_resource type="Script" path="res://scenes/player/hurtbox_component.gd" id="1_otug2"]
+[ext_resource type="Script" path="res://scenes/player/dice_roller.gd" id="2_ht7vy"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_hcesu"]
+radius = 16.0312
+
+[node name="HurtboxComponent" type="Area2D" node_paths=PackedStringArray("hit_effect")]
+script = ExtResource("1_otug2")
+hit_effect = NodePath("DiceRoller")
+
+[node name="DiceRoller" type="Node" parent="."]
+script = ExtResource("2_ht7vy")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_hcesu")
+debug_color = Color(0.790816, 0.428507, 1.34766e-06, 0.42)
