@@ -1,8 +1,10 @@
-[gd_scene load_steps=12 format=3 uid="uid://cae5wpfg5qgds"]
+[gd_scene load_steps=22 format=3 uid="uid://cae5wpfg5qgds"]
 
 [ext_resource type="Texture2D" uid="uid://l2dpxdrtlh4j" path="res://assets/player/Jester.png" id="1_1cyyd"]
 [ext_resource type="Script" path="res://scenes/player/projectile.gd" id="1_7x736"]
 [ext_resource type="PackedScene" uid="uid://n2jsqn2212aw" path="res://scenes/player/hurtbox_component.tscn" id="3_hah8q"]
+[ext_resource type="AudioStream" uid="uid://cvkdc3r2f073b" path="res://assets/sounds/snowball-throw-hit_7-278174.mp3" id="4_ks307"]
+[ext_resource type="AudioStream" uid="uid://de1xnj6olkdpa" path="res://assets/sounds/cash-register-fake-88639.mp3" id="5_tshdx"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_q80ng"]
 
@@ -30,6 +32,10 @@ region = Rect2(128, 128, 32, 32)
 atlas = ExtResource("1_1cyyd")
 region = Rect2(160, 128, 32, 32)
 
+[sub_resource type="AtlasTexture" id="AtlasTexture_6564y"]
+atlas = ExtResource("1_1cyyd")
+region = Rect2(0, 128, 32, 32)
+
 [sub_resource type="SpriteFrames" id="SpriteFrames_k420l"]
 animations = [{
 "frames": [{
@@ -54,14 +60,96 @@ animations = [{
 "loop": true,
 "name": &"default",
 "speed": 24.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_6564y")
+}],
+"loop": true,
+"name": &"idle",
+"speed": 5.0
 }]
 
+[sub_resource type="Animation" id="Animation_c6u26"]
+length = 0.001
+
+[sub_resource type="Animation" id="Animation_mljfa"]
+resource_name = "crit_hit_effect"
+tracks/0/type = "audio"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("AudioStreamPlayer2D")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"clips": [{
+"end_offset": 0.0,
+"start_offset": 0.0,
+"stream": ExtResource("5_tshdx")
+}],
+"times": PackedFloat32Array(0)
+}
+tracks/0/use_blend = true
+
+[sub_resource type="Animation" id="Animation_licx3"]
+resource_name = "hit_effect"
+tracks/0/type = "audio"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("AudioStreamPlayer2D")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"clips": [{
+"end_offset": 0.0,
+"start_offset": 0.0,
+"stream": ExtResource("4_ks307")
+}],
+"times": PackedFloat32Array(0)
+}
+tracks/0/use_blend = true
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_pe2su"]
+_data = {
+"RESET": SubResource("Animation_c6u26"),
+"crit_hit_effect": SubResource("Animation_mljfa"),
+"hit_effect": SubResource("Animation_licx3")
+}
+
+[sub_resource type="Gradient" id="Gradient_do28x"]
+colors = PackedColorArray(1, 1, 1, 1, 1, 1, 1, 0)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_rf0tw"]
+gradient = SubResource("Gradient_do28x")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_agx2d"]
+lifetime_randomness = 1.0
+particle_flag_disable_z = true
+emission_shape = 1
+emission_sphere_radius = 25.0
+direction = Vector3(0.5, -0.5, 0)
+spread = 29.189
+initial_velocity_min = 200.0
+initial_velocity_max = 800.0
+gravity = Vector3(0, 2000, 0)
+damping_min = 200.0
+damping_max = 1000.0
+scale_min = 4.0
+scale_max = 10.0
+color_ramp = SubResource("GradientTexture1D_rf0tw")
+
 [node name="Projectile" type="RigidBody2D"]
+collision_mask = 16
+contact_monitor = true
+max_contacts_reported = 5
 script = ExtResource("1_7x736")
 throw_type = 1
 GRAVITY = 1000.0
 INITIAL_BURST_SPEED = 800.0
 GRAVITY_DELAY = 0.05
+SLOW_VELOCITY_TIME = 1.0
+X_VELOCITY_THRESHOLD = 60.0
+STOP_VELOCITY_TIME = 0.2
 
 [node name="HurtboxComponent" parent="." instance=ExtResource("3_hah8q")]
 
@@ -72,6 +160,23 @@ shape = SubResource("CircleShape2D_q80ng")
 texture_filter = 1
 scale = Vector2(3, 3)
 sprite_frames = SubResource("SpriteFrames_k420l")
-frame_progress = 0.299379
+animation = &"idle"
+
+[node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="."]
+
+[node name="AudioAnimationPlayer" type="AnimationPlayer" parent="."]
+unique_name_in_owner = true
+libraries = {
+"": SubResource("AnimationLibrary_pe2su")
+}
+
+[node name="GPUParticles2D" type="GPUParticles2D" parent="."]
+position = Vector2(-0.5, 0)
+emitting = false
+amount = 20
+process_material = SubResource("ParticleProcessMaterial_agx2d")
+lifetime = 0.8
+one_shot = true
+explosiveness = 1.0
 
 [editable path="HurtboxComponent"]

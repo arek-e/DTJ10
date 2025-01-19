@@ -1,10 +1,14 @@
-[gd_scene load_steps=16 format=3 uid="uid://c22mrd8bbhmcp"]
+[gd_scene load_steps=17 format=3 uid="uid://c22mrd8bbhmcp"]
 
 [ext_resource type="Script" path="res://scenes/player/player.gd" id="1_a6jbn"]
 [ext_resource type="Texture2D" uid="uid://l2dpxdrtlh4j" path="res://assets/player/Jester.png" id="2_i42md"]
 [ext_resource type="AnimationNodeStateMachine" uid="uid://hdwbaek3pvnf" path="res://scenes/player/player_animation_state_tree.tres" id="3_0mica"]
 [ext_resource type="Script" path="res://scenes/player/player_animation.gd" id="3_oeyhq"]
-[ext_resource type="PackedScene" path="res://scenes/player/throw_component.tscn" id="5_ot08u"]
+[ext_resource type="PackedScene" uid="uid://v4xe6c6j2cpd" path="res://scenes/player/throw_component.tscn" id="5_ot08u"]
+
+[sub_resource type="Curve" id="Curve_4tkqj"]
+_data = [Vector2(0.00324675, 1), 0.0, 0.0, 0, 0, Vector2(0.996753, 0.501948), -1.495, 0.0, 0, 0]
+point_count = 2
 
 [sub_resource type="Animation" id="Animation_m56vv"]
 resource_name = "Idle"
@@ -134,6 +138,7 @@ height = 70.0
 collision_mask = 30
 platform_on_leave = 2
 script = ExtResource("1_a6jbn")
+dash_curve = SubResource("Curve_4tkqj")
 
 [node name="PlatformDetector" type="RayCast2D" parent="."]
 target_position = Vector2(0, 6)
@@ -170,6 +175,9 @@ animation_tree = NodePath("../AnimationTree")
 [node name="Camera" type="Camera2D" parent="."]
 position = Vector2(0, -21)
 offset = Vector2(0, -40)
+process_callback = 0
+drag_horizontal_enabled = true
+drag_vertical_enabled = true
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(0, -12)
