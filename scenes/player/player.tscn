@@ -126,8 +126,9 @@ nodes/TimeScale/position = Vector2(400, 20)
 nodes/output/position = Vector2(600, 120)
 node_connections = [&"TimeScale", 0, &"PlayerStates", &"output", 0, &"TimeScale"]
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_ht1ln"]
-size = Vector2(46, 70)
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_ch5gp"]
+radius = 19.0
+height = 70.0
 
 [node name="Player" type="CharacterBody2D"]
 collision_mask = 30
@@ -172,7 +173,7 @@ offset = Vector2(0, -40)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(0, -12)
-shape = SubResource("RectangleShape2D_ht1ln")
+shape = SubResource("CapsuleShape2D_ch5gp")
 
 [node name="UI" type="CanvasLayer" parent="."]
 layer = 0

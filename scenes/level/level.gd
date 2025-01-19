@@ -2,7 +2,7 @@ extends Node2D
 
 const LIMIT_LEFT = -315
 const LIMIT_TOP = -250
-const LIMIT_RIGHT = 955
+const LIMIT_RIGHT = 3000
 const LIMIT_BOTTOM = 690
 
 # Called when the node enters the scene tree for the first time.
