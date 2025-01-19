@@ -3,8 +3,8 @@
 [ext_resource type="Script" path="res://game.gd" id="1_y18lm"]
 [ext_resource type="PackedScene" uid="uid://c0ko6b3dpftwo" path="res://scenes/level/level.tscn" id="2_1277r"]
 [ext_resource type="PackedScene" uid="uid://c22mrd8bbhmcp" path="res://scenes/player/player.tscn" id="3_s7hny"]
-[ext_resource type="PackedScene" path="res://scenes/player/basic_enemy.tscn" id="4_60a8s"]
-[ext_resource type="Theme" uid="uid://ib0twwy428v1" path="res://assets/base_theme.tres" id="5_1d72q"]
+[ext_resource type="PackedScene" uid="uid://c3u8t2ip2he0x" path="res://scenes/player/basic_enemy.tscn" id="4_60a8s"]
+[ext_resource type="Theme" path="res://assets/base_theme.tres" id="5_1d72q"]
 
 [sub_resource type="Curve2D" id="Curve2D_rafut"]
 _data = {

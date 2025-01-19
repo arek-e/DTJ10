@@ -1,4 +1,4 @@
-[gd_resource type="AnimationNodeStateMachine" load_steps=18 format=3 uid="uid://dbegp3p4x1a3e"]
+[gd_resource type="AnimationNodeStateMachine" load_steps=18 format=3 uid="uid://d373m74c3x6u8"]
 
 [ext_resource type="AnimationNodeBlendSpace2D" uid="uid://dm6ew31h0ig52" path="res://scenes/player/player_run_blend.tres" id="1_g3xh4"]
 

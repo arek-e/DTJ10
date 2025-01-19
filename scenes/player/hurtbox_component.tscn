@@ -16,3 +16,5 @@ script = ExtResource("2_ht7vy")
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("CircleShape2D_hcesu")
 debug_color = Color(0.790816, 0.428507, 1.34766e-06, 0.42)
+
+[node name="BasicAttack" type="Node" parent="."]

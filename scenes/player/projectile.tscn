@@ -152,6 +152,8 @@ X_VELOCITY_THRESHOLD = 60.0
 STOP_VELOCITY_TIME = 0.2
 
 [node name="HurtboxComponent" parent="." instance=ExtResource("3_hah8q")]
+collision_layer = 2
+collision_mask = 4
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("CircleShape2D_q80ng")

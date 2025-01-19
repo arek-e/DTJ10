@@ -1,7 +1,7 @@
 [gd_scene load_steps=12 format=4 uid="uid://c0ko6b3dpftwo"]
 
 [ext_resource type="Script" path="res://scenes/level/level.gd" id="1_5agfo"]
-[ext_resource type="TileSet" uid="uid://pt3uoc5siw5i" path="res://scenes/level/tileset.tres" id="2_ok840"]
+[ext_resource type="TileSet" uid="uid://daasck1pk4u2f" path="res://scenes/level/tileset.tres" id="2_ok840"]
 [ext_resource type="Texture2D" uid="uid://clrsharp3p0b7" path="res://assets/background/The Midnight Background/Sky.png" id="3_gbh3r"]
 [ext_resource type="Texture2D" uid="uid://chn4hoaequw82" path="res://assets/background/The Midnight Background/Stars.png" id="4_4ursm"]
 [ext_resource type="Texture2D" uid="uid://cloilopu68k7d" path="res://assets/background/The Midnight Background/Trees.png" id="5_gqxq4"]

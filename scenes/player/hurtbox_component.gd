@@ -8,12 +8,18 @@ class_name HurtboxComponent
 func trigger_hurt() -> Attack:
 	if hit_effect:
 		var attack = hit_effect.trigger_damage()
-		if attack.is_critical_hit:
-			audio_anim_player.play("crit_hit_effect")
-		else:
-			audio_anim_player.play("hit_effect")
-		gpu_particles_2d.restart()
-		gpu_particles_2d.emitting = true
+		
+		# Check if `audio_anim_player` is null before playing
+		if audio_anim_player:
+			if attack.is_critical_hit:
+				audio_anim_player.play("crit_hit_effect")
+			else:
+				audio_anim_player.play("hit_effect")
+		
+		if gpu_particles_2d:
+			gpu_particles_2d.restart()
+			gpu_particles_2d.emitting = true
+		
 		return attack
 	else:
 		print("No DamageCalculator assigned to HurtComponent!")

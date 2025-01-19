@@ -1,15 +1,20 @@
-[gd_scene load_steps=21 format=3 uid="uid://c3u8t2ip2he0x"]
+[gd_scene load_steps=24 format=3 uid="uid://c3u8t2ip2he0x"]
 
 [ext_resource type="Script" path="res://scenes/player/basic_enemy.gd" id="1_th8qe"]
 [ext_resource type="PackedScene" uid="uid://jdthwoslg0wu" path="res://scenes/player/hitbox_component.tscn" id="2_ubqgg"]
 [ext_resource type="Texture2D" uid="uid://d1ij4yqnjywuf" path="res://assets/player/Jester.png" id="3_1vm0h"]
 [ext_resource type="Shader" uid="uid://b0ioug7jl6ieo" path="res://scenes/enemies/hit_flash.res" id="4_48hgo"]
+[ext_resource type="Script" path="res://scenes/player/hurtbox_component.gd" id="5_oppda"]
 [ext_resource type="BehaviorTree" uid="uid://mi7qmrmk8dtt" path="res://ai/trees/chase_player.tres" id="6_qhrb0"]
 [ext_resource type="PackedScene" uid="uid://bv37osd40ylu0" path="res://scenes/player/health_component.tscn" id="6_vr8ol"]
+[ext_resource type="Script" path="res://scenes/player/dice_roller.gd" id="8_gpy4w"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_l6wwm"]
 radius = 8.25
 height = 26.5
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_4b154"]
+radius = 5.5
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_qthg3"]
 radius = 9.0
@@ -72,6 +77,30 @@ tracks/0/keys = {
 "update": 1,
 "values": [1]
 }
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("HurtboxComponent/CollisionShape2D:disabled")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("HurtboxComponent/CollisionShape2D:position")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(13.5, -1)]
+}
 
 [sub_resource type="Animation" id="Animation_tgli5"]
 resource_name = "attack_left"
@@ -89,6 +118,30 @@ tracks/0/keys = {
 "update": 1,
 "values": [42, 43, 44, 45, 46]
 }
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("HurtboxComponent/CollisionShape2D:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(-11.25, -1)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("HurtboxComponent/CollisionShape2D:disabled")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 0.208334, 0.333334),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 1,
+"values": [true, false, true]
+}
 
 [sub_resource type="Animation" id="Animation_7hb8f"]
 resource_name = "attack_right"
@@ -105,6 +158,30 @@ tracks/0/keys = {
 "transitions": PackedFloat32Array(1, 1, 1, 1, 1),
 "update": 1,
 "values": [36, 37, 38, 39, 40]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("HurtboxComponent/CollisionShape2D:disabled")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.208334, 0.333334),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 1,
+"values": [true, false, true]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("HurtboxComponent/CollisionShape2D:position")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(13.5, -1)]
 }
 
 [sub_resource type="Animation" id="Animation_ogcio"]
@@ -182,8 +259,32 @@ script = ExtResource("1_th8qe")
 position = Vector2(-1, -0.75)
 shape = SubResource("CapsuleShape2D_l6wwm")
 
+[node name="HealthComponent" parent="." instance=ExtResource("6_vr8ol")]
+MAX_HEALTH = 30.0
+
+[node name="DamageNumberLocation" parent="HealthComponent" index="0"]
+position = Vector2(-0.5, -13.5)
+
+[node name="HurtboxComponent" type="Area2D" parent="." node_paths=PackedStringArray("hit_effect")]
+collision_layer = 4
+collision_mask = 2
+script = ExtResource("5_oppda")
+hit_effect = NodePath("DiceRoller")
+
+[node name="DiceRoller" type="Node" parent="HurtboxComponent"]
+script = ExtResource("8_gpy4w")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="HurtboxComponent"]
+position = Vector2(13.5, -1)
+shape = SubResource("CapsuleShape2D_4b154")
+debug_color = Color(0.809846, 0, 0.255962, 0.42)
+
+[node name="BasicAttack" type="Node" parent="HurtboxComponent"]
+
 [node name="HitboxComponent" parent="." node_paths=PackedStringArray("health_component") instance=ExtResource("2_ubqgg")]
 position = Vector2(1.92388, 9.71189)
+collision_layer = 4
+collision_mask = 2
 health_component = NodePath("../HealthComponent")
 
 [node name="CollisionShape2D" parent="HitboxComponent" index="0"]
@@ -208,15 +309,15 @@ libraries = {
 "": SubResource("AnimationLibrary_whsd7")
 }
 
-[node name="HealthComponent" parent="." instance=ExtResource("6_vr8ol")]
-MAX_HEALTH = 30.0
-
-[node name="DamageNumberLocation" parent="HealthComponent" index="0"]
-position = Vector2(-0.5, -13.5)
-
 [node name="BTPlayer" type="BTPlayer" parent="."]
 behavior_tree = ExtResource("6_qhrb0")
 blackboard_plan = SubResource("BlackboardPlan_y25k6")
 
-[editable path="HitboxComponent"]
+[node name="AudioAnimationPlayer" type="AnimationPlayer" parent="."]
+unique_name_in_owner = true
+root_node = NodePath("../AudioStreamPlayer")
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer2D" parent="."]
+
 [editable path="HealthComponent"]
+[editable path="HitboxComponent"]

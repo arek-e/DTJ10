@@ -12,9 +12,7 @@ func _ready() -> void:
 
 
 func take_damage(attack: Attack):
-	current_health -= attack.attack_damage
-	print("Heatlh: ", current_health)
-	
+	current_health -= attack.attack_damage	
 	DamageNumbers.display_number(attack.attack_damage, damage_pos.global_position, attack.is_critical_hit)
 	
 	if current_health <= 0:

@@ -1,4 +1,4 @@
-[gd_scene load_steps=25 format=3 uid="uid://c22mrd8bbhmcp"]
+[gd_scene load_steps=28 format=3 uid="uid://c22mrd8bbhmcp"]
 
 [ext_resource type="Script" path="res://scenes/player/player.gd" id="1_a6jbn"]
 [ext_resource type="Texture2D" uid="uid://d1ij4yqnjywuf" path="res://assets/player/Jester.png" id="2_i42md"]
@@ -7,6 +7,8 @@
 [ext_resource type="AudioStream" uid="uid://dssl55i1622i3" path="res://assets/sounds/swoosh-sound-effect-for-fight-scenes-or-transitions-4-149887.mp3" id="3_iloln"]
 [ext_resource type="Script" path="res://scenes/player/player_animation.gd" id="3_oeyhq"]
 [ext_resource type="PackedScene" uid="uid://v4xe6c6j2cpd" path="res://scenes/player/throw_component.tscn" id="5_ot08u"]
+[ext_resource type="PackedScene" uid="uid://bv37osd40ylu0" path="res://scenes/player/health_component.tscn" id="8_2lvj2"]
+[ext_resource type="PackedScene" uid="uid://jdthwoslg0wu" path="res://scenes/player/hitbox_component.tscn" id="9_u6q1f"]
 
 [sub_resource type="Curve" id="Curve_4tkqj"]
 _data = [Vector2(0.00324675, 1), 0.0, 0.0, 0, 0, Vector2(0.996753, 0.501948), -1.495, 0.0, 0, 0]
@@ -279,6 +281,10 @@ scale_min = 0.5
 scale_max = 3.0
 color_ramp = SubResource("GradientTexture1D_emcs5")
 
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_gp3fu"]
+radius = 23.0
+height = 72.0
+
 [node name="Player" type="CharacterBody2D" groups=["Player"]]
 collision_mask = 30
 platform_on_leave = 2
@@ -369,4 +375,21 @@ explosiveness = 1.0
 unique_name_in_owner = true
 position = Vector2(-2, 23)
 
+[node name="HealthComponent" parent="." instance=ExtResource("8_2lvj2")]
+MAX_HEALTH = 100.0
+
+[node name="DamageNumberLocation" parent="HealthComponent" index="0"]
+position = Vector2(0, -60.725)
+
+[node name="HitboxComponent" parent="." node_paths=PackedStringArray("health_component") instance=ExtResource("9_u6q1f")]
+collision_layer = 2
+collision_mask = 4
+health_component = NodePath("../HealthComponent")
+
+[node name="CollisionShape2D" parent="HitboxComponent" index="0"]
+position = Vector2(0, -11)
+shape = SubResource("CapsuleShape2D_gp3fu")
+
 [editable path="ThrowComponent"]
+[editable path="HealthComponent"]
+[editable path="HitboxComponent"]
