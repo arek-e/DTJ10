@@ -35,6 +35,7 @@ func _physics_process(delta: float) -> void:
 	var direction := Input.get_axis("move_left", "move_right") * SPEED
 	velocity.x = move_toward(velocity.x, direction, ACCELERATION * delta)
 	
+	floor_stop_on_slope = not platform_detector.is_colliding()
 	move_and_slide()
 	
 func update_animation_parameters():
