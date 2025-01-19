@@ -1,0 +1,62 @@
+[gd_scene load_steps=6 format=3 uid="uid://b1odt7o5i533q"]
+
+[ext_resource type="Texture2D" uid="uid://clrsharp3p0b7" path="res://assets/background/The Midnight Background/Sky.png" id="1_4yllr"]
+[ext_resource type="Texture2D" uid="uid://chn4hoaequw82" path="res://assets/background/The Midnight Background/Stars.png" id="2_s7fqd"]
+[ext_resource type="Texture2D" uid="uid://cloilopu68k7d" path="res://assets/background/The Midnight Background/Trees.png" id="3_n63ts"]
+[ext_resource type="Texture2D" uid="uid://0demqcn5s0y3" path="res://assets/background/The Midnight Background/Land 1.png" id="4_vbsv5"]
+[ext_resource type="Texture2D" uid="uid://dpge5oeo18msm" path="res://assets/background/The Midnight Background/Land 2.png" id="5_itv67"]
+
+[node name="ParallaxBackground" type="ParallaxBackground"]
+
+[node name="Sky" type="ParallaxLayer" parent="."]
+position = Vector2(-3, -175)
+motion_scale = Vector2(0.1, 0.1)
+motion_mirroring = Vector2(1440, 0)
+
+[node name="Sprite2D" type="Sprite2D" parent="Sky"]
+texture_filter = 1
+position = Vector2(550, 350)
+scale = Vector2(5.65, 5.65)
+texture = ExtResource("1_4yllr")
+
+[node name="Stars" type="ParallaxLayer" parent="."]
+position = Vector2(-3, -175)
+motion_scale = Vector2(0.1, 0.1)
+motion_mirroring = Vector2(1440, 0)
+
+[node name="Sprite2D" type="Sprite2D" parent="Stars"]
+texture_filter = 1
+position = Vector2(550, 350)
+scale = Vector2(5.65, 5.65)
+texture = ExtResource("2_s7fqd")
+
+[node name="Trees" type="ParallaxLayer" parent="."]
+position = Vector2(-3, -175)
+motion_scale = Vector2(0.8, 0.8)
+motion_mirroring = Vector2(1440, 0)
+
+[node name="Sprite2D" type="Sprite2D" parent="Trees"]
+texture_filter = 1
+position = Vector2(550, 350)
+scale = Vector2(5.65, 5.65)
+texture = ExtResource("3_n63ts")
+
+[node name="Land 1" type="ParallaxLayer" parent="."]
+position = Vector2(-3, -175)
+motion_mirroring = Vector2(1440, 0)
+
+[node name="Sprite2D" type="Sprite2D" parent="Land 1"]
+texture_filter = 1
+position = Vector2(550, 350)
+scale = Vector2(5.65, 5.65)
+texture = ExtResource("4_vbsv5")
+
+[node name="Land 2" type="ParallaxLayer" parent="."]
+position = Vector2(-3, -175)
+motion_mirroring = Vector2(1440, 0)
+
+[node name="Sprite2D" type="Sprite2D" parent="Land 2"]
+texture_filter = 1
+position = Vector2(550, 350)
+scale = Vector2(5.65, 5.65)
+texture = ExtResource("5_itv67")
