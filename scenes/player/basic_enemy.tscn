@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" path="res://scenes/player/basic_enemy.gd" id="1_th8qe"]
 [ext_resource type="PackedScene" uid="uid://jdthwoslg0wu" path="res://scenes/player/hitbox_component.tscn" id="2_ubqgg"]
-[ext_resource type="Texture2D" uid="uid://l2dpxdrtlh4j" path="res://assets/player/Jester.png" id="3_1vm0h"]
+[ext_resource type="Texture2D" uid="uid://bdpayy4qm6j6f" path="res://assets/player/Jester.png" id="3_1vm0h"]
 [ext_resource type="Shader" uid="uid://b0ioug7jl6ieo" path="res://scenes/enemies/hit_flash.res" id="4_48hgo"]
 [ext_resource type="BehaviorTree" uid="uid://mi7qmrmk8dtt" path="res://ai/trees/chase_player.tres" id="5_hq575"]
 [ext_resource type="PackedScene" uid="uid://bv37osd40ylu0" path="res://scenes/player/health_component.tscn" id="6_vr8ol"]
@@ -197,7 +197,7 @@ texture_filter = 1
 material = SubResource("ShaderMaterial_h8lg1")
 texture = ExtResource("3_1vm0h")
 hframes = 6
-vframes = 5
+vframes = 7
 
 [node name="BTPlayer" type="BTPlayer" parent="."]
 behavior_tree = ExtResource("5_hq575")
@@ -218,6 +218,10 @@ MAX_HEALTH = 30.0
 
 [node name="DamageNumberLocation" parent="HealthComponent" index="0"]
 position = Vector2(-0.5, -13.5)
+
+[node name="PointLight2D" type="PointLight2D" parent="."]
+color = Color(0.183739, 1, 0.963821, 1)
+energy = 13.24
 
 [editable path="HitboxComponent"]
 [editable path="HealthComponent"]

@@ -14,4 +14,5 @@ func _physics_process(delta: float) -> void:
 
 	animation_tree.set("parameters/PlayerStates/Idle/blend_position", last_facing_direction)
 	animation_tree.set("parameters/PlayerStates/Run/blend_position", last_facing_direction)
+	animation_tree.set("parameters/PlayerStates/Dash/blend_position", last_facing_direction.x)
 	
