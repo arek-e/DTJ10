@@ -246,7 +246,7 @@ _data = {
 [sub_resource type="AnimationNodeTimeScale" id="AnimationNodeTimeScale_qen4w"]
 
 [sub_resource type="AnimationNodeBlendTree" id="AnimationNodeBlendTree_p6gp4"]
-graph_offset = Vector2(-374.506, 96.1061)
+graph_offset = Vector2(-395.506, 25.4002)
 nodes/PlayerStates/node = ExtResource("3_0mica")
 nodes/PlayerStates/position = Vector2(60, 120)
 nodes/TimeScale/node = SubResource("AnimationNodeTimeScale_qen4w")

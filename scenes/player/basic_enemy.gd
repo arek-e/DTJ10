@@ -1,44 +1,36 @@
 extends CharacterBody2D
 
-@onready var anim_tree: AnimationTree = $AnimationTree
+@onready var animation_player: AnimationPlayer = $AnimationPlayer
 
 const jump_power = -400
 const gravity = 50 
 
-
 func _physics_process(delta: float) -> void:
+	# Handle jumping logic
 	if is_on_wall() and is_on_floor():
 		velocity.y = jump_power
-
-	if not is_on_floor():
-		velocity += get_gravity() * delta
-
+	else:
+		velocity.y += gravity
 	move_and_slide()
 
 # Function to move the character and handle animations
-func move(dir, speed):
-
+func move(dir: int, speed: float) -> void:
 	velocity.x = dir * speed
-	handle_animation(dir)  # Pass the direction to handle animation
-	
+	handle_animation(dir)
+
 # Function to handle animation based on the character's direction
-func handle_animation(dir: int):
-	anim_tree["parameters/StateMachine/conditions/is_attacking"] = false
-	if velocity == Vector2.ZERO:
-		anim_tree["parameters/StateMachine/Run/blend_position"] = 0
+func handle_animation(dir: int) -> void:
+	if dir == 0:
+		animation_player.play("idle")
 	else:
 		if dir > 0:
-			anim_tree["parameters/StateMachine/Run/blend_position"] = 1
+			animation_player.play("run_right")
 		else:
-			anim_tree["parameters/StateMachine/Run/blend_position"] = -1
+			animation_player.play("run_left")
 
-
-func check_for_self(node):
-	if node == self:
-		return true
-	else:
-		false
-
-# Function to play attack animation based on last direction
+# Function to play attack animation based on the last direction
 func play_attack(dir: float) -> void:
-	anim_tree["parameters/StateMachine/conditions/is_attacking"] = true
+	if dir > 0:
+		animation_player.play("attack_right")
+	else:
+		animation_player.play("attack_left")

@@ -1,7 +1,6 @@
 extends BTAction
 
 @export var target_var := &"target"
-@export var dir_var := &"dir"
 
 @export var speed_var = 60
 @export var tolerance = 20
