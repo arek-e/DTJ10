@@ -13,5 +13,5 @@ func roll_damage() -> int:
 		print("Critical hit!")
 		return 20  # Critical hit damage (you can adjust this)
 	else:
-		print("Hit", dice_roll)
+		print("Hit: ", dice_roll)
 		return dice_roll  # Normal hit damage

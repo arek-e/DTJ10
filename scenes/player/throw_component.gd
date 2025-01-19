@@ -3,6 +3,7 @@ class_name ThrowComponent
 
 @export var projectile: PackedScene = preload("res://scenes/player/projectile.tscn")
 @onready var spawnMarker: Marker2D = $SpawnMarker
+@onready var audio_animation_player = %AudioAnimationPlayer
 
 func throw():
 	if not projectile or not spawnMarker:
@@ -16,6 +17,7 @@ func throw():
 
 	# Initialize the projectile based on its throw type
 	if instance.has_method("initialize"):
+		audio_animation_player.play("throw_sound")
 		instance.initialize(spawn_position, direction)
 
 	# Add the projectile to the root (or parent node)

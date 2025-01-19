@@ -2,9 +2,12 @@ extends Node2D
 class_name HitboxComponent
 
 @export var health_component: HealthComponent
+@onready var animation_player: AnimationPlayer = $HitFlashAnimationPlayer
 
 func take_damage(damage: float):
 	if health_component is HealthComponent:
+		print_debug("FLASH!")
+		animation_player.play("hit_flash")
 		health_component.take_damage(damage)
 
 

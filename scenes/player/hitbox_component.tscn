@@ -11,4 +11,6 @@ script = ExtResource("1_okrqn")
 shape = SubResource("RectangleShape2D_1llx3")
 debug_color = Color(0.743202, 0.213177, 1, 0.42)
 
+[node name="HitFlashAnimationPlayer" type="AnimationPlayer" parent="."]
+
 [connection signal="area_entered" from="." to="." method="_on_hitbox_area_entered"]
