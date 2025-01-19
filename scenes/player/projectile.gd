@@ -101,5 +101,4 @@ func _physics_process(delta: float) -> void:
 				# Reset the stop velocity timer if the conditions are no longer met
 				stop_velocity_timer = 0.0
 				slow_velocity_timer = 0.0
-			
-			print_debug(linear_velocity.x)
+		
