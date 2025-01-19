@@ -22,6 +22,7 @@ var stop_velocity_timer: float = 0.0  # Timer to track how long the velocity has
 
 @onready var animated_sprite: AnimatedSprite2D = $AnimatedSprite2D
 
+
 # Called when the projectile is initialized
 func initialize(position: Vector2, dir: Vector2) -> void:
 	global_position = position
@@ -36,7 +37,7 @@ func _ready() -> void:
 	if animated_sprite:
 		animated_sprite.play("default")
 		
-	linear_velocity = velocity_initial_burst
+	linear_velocity = velocity_initial_burst	
 
 func _physics_process(delta: float) -> void:
 	# Increment gravity timer
@@ -68,7 +69,7 @@ func _physics_process(delta: float) -> void:
 
 			# Apply stronger friction when rolling on the ground
 			if is_on_ground:
-				var ground_friction_coefficient = 1800.0  # Adjust to desired friction
+				var ground_friction_coefficient = 2300.0  # Adjust to desired friction
 				tangential_velocity -= tangential_velocity.normalized() * ground_friction_coefficient * delta
 
 			# Clamp tangential velocity to stop rolling
@@ -100,3 +101,5 @@ func _physics_process(delta: float) -> void:
 				# Reset the stop velocity timer if the conditions are no longer met
 				stop_velocity_timer = 0.0
 				slow_velocity_timer = 0.0
+			
+			print_debug(linear_velocity.x)

@@ -6,7 +6,6 @@ class_name HitboxComponent
 
 func take_damage(attack: Attack):
 	if health_component is HealthComponent:
-		print_debug("FLASH!")
 		animation_player.play("hit_flash")
 		health_component.take_damage(attack)
 

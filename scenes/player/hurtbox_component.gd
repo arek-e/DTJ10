@@ -3,11 +3,17 @@ class_name HurtboxComponent
 
 @export var hit_effect: HitEffect # Drag the damage calculator node in the editor
 @onready var audio_anim_player = %AudioAnimationPlayer
+@onready var gpu_particles_2d: GPUParticles2D = $"../GPUParticles2D"
 
 func trigger_hurt() -> Attack:
 	if hit_effect:
 		var attack = hit_effect.trigger_damage()
-		audio_anim_player.play("hit_effect")
+		if attack.is_critical_hit:
+			audio_anim_player.play("crit_hit_effect")
+		else:
+			audio_anim_player.play("hit_effect")
+		gpu_particles_2d.restart()
+		gpu_particles_2d.emitting = true
 		return attack
 	else:
 		print("No DamageCalculator assigned to HurtComponent!")
