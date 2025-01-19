@@ -4,10 +4,16 @@ extends Node
 @export var mob_scene: PackedScene
 
 @onready var player := $Level/Player
+@onready var camera := $Level/Player/Camera
 @onready var mob_spawn_location = $MobPath/MobSpawnLocation
+@onready var label := $CanvasLayer/TimeLabel
+@onready var score_timer := $ScoreTimer
+
+var current_time = 0
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
+	
 	new_game()
 
 
@@ -17,6 +23,7 @@ func _process(delta: float) -> void:
 
 func new_game() -> void: 
 	$StartTimer.start()
+	
 
 func _on_mob_timer_timeout() -> void:
 	var mob = mob_scene.instantiate()
@@ -30,3 +37,9 @@ func _on_mob_timer_timeout() -> void:
 	
 	
 	add_child(mob)
+
+
+func _on_score_timer_timeout() -> void:
+	current_time += score_timer.get_wait_time()
+	
+	label.text = str(current_time)
