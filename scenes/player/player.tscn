@@ -4,7 +4,7 @@
 [ext_resource type="Texture2D" uid="uid://l2dpxdrtlh4j" path="res://assets/player/Jester.png" id="2_i42md"]
 [ext_resource type="AnimationNodeStateMachine" uid="uid://hdwbaek3pvnf" path="res://scenes/player/player_animation_state_tree.tres" id="3_0mica"]
 [ext_resource type="Script" path="res://scenes/player/player_animation.gd" id="3_oeyhq"]
-[ext_resource type="PackedScene" path="res://scenes/player/throw_component.tscn" id="5_ot08u"]
+[ext_resource type="PackedScene" uid="uid://v4xe6c6j2cpd" path="res://scenes/player/throw_component.tscn" id="5_ot08u"]
 
 [sub_resource type="Animation" id="Animation_m56vv"]
 resource_name = "Idle"
