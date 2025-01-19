@@ -1,10 +1,10 @@
-[gd_scene load_steps=22 format=3 uid="uid://c3u8t2ip2he0x"]
+[gd_scene load_steps=21 format=3 uid="uid://c3u8t2ip2he0x"]
 
 [ext_resource type="Script" path="res://scenes/player/basic_enemy.gd" id="1_th8qe"]
 [ext_resource type="PackedScene" uid="uid://jdthwoslg0wu" path="res://scenes/player/hitbox_component.tscn" id="2_ubqgg"]
 [ext_resource type="Texture2D" uid="uid://d1ij4yqnjywuf" path="res://assets/player/Jester.png" id="3_1vm0h"]
 [ext_resource type="Shader" uid="uid://b0ioug7jl6ieo" path="res://scenes/enemies/hit_flash.res" id="4_48hgo"]
-[ext_resource type="AnimationNodeStateMachine" uid="uid://hdwbaek3pvnf" path="res://scenes/player/player_animation_state_tree.tres" id="6_p2i1y"]
+[ext_resource type="BehaviorTree" uid="uid://mi7qmrmk8dtt" path="res://ai/trees/chase_player.tres" id="6_qhrb0"]
 [ext_resource type="PackedScene" uid="uid://bv37osd40ylu0" path="res://scenes/player/health_component.tscn" id="6_vr8ol"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_l6wwm"]
@@ -75,8 +75,7 @@ tracks/0/keys = {
 
 [sub_resource type="Animation" id="Animation_tgli5"]
 resource_name = "attack_left"
-length = 0.333338
-loop_mode = 1
+length = 0.666671
 step = 0.0416667
 tracks/0/type = "value"
 tracks/0/imported = false
@@ -85,7 +84,7 @@ tracks/0/path = NodePath("Sprite2D:frame")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.0833334, 0.166667, 0.25, 0.333334),
+"times": PackedFloat32Array(0, 0.125, 0.458333, 0.541667, 0.666667),
 "transitions": PackedFloat32Array(1, 1, 1, 1, 1),
 "update": 1,
 "values": [42, 43, 44, 45, 46]
@@ -93,20 +92,19 @@ tracks/0/keys = {
 
 [sub_resource type="Animation" id="Animation_7hb8f"]
 resource_name = "attack_right"
-length = 0.333338
-loop_mode = 1
+length = 0.666671
 step = 0.0416667
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("Sprite2D:frame_coords")
+tracks/0/path = NodePath("Sprite2D:frame")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.0416667, 0.0833333, 0.125, 0.25, 0.333333),
-"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1),
+"times": PackedFloat32Array(0, 0.125, 0.458333, 0.541667, 0.666667),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1),
 "update": 1,
-"values": [Vector2i(0, 6), Vector2i(1, 6), Vector2i(2, 6), Vector2i(3, 6), Vector2i(4, 6), Vector2i(1, 1)]
+"values": [36, 37, 38, 39, 40]
 }
 
 [sub_resource type="Animation" id="Animation_ogcio"]
@@ -173,16 +171,7 @@ _data = {
 "run_right": SubResource("Animation_eik3h")
 }
 
-[sub_resource type="AnimationNodeTimeScale" id="AnimationNodeTimeScale_qen4w"]
-
-[sub_resource type="AnimationNodeBlendTree" id="AnimationNodeBlendTree_dn54a"]
-graph_offset = Vector2(-306.48, 52.5934)
-nodes/PlayerStates/node = ExtResource("6_p2i1y")
-nodes/PlayerStates/position = Vector2(60, 120)
-nodes/TimeScale/node = SubResource("AnimationNodeTimeScale_qen4w")
-nodes/TimeScale/position = Vector2(400, 20)
-nodes/output/position = Vector2(600, 120)
-node_connections = [&"TimeScale", 0, &"PlayerStates", &"output", 0, &"TimeScale"]
+[sub_resource type="BlackboardPlan" id="BlackboardPlan_y25k6"]
 
 [node name="Enemy" type="CharacterBody2D" groups=["Enemy"]]
 scale = Vector2(4, 4)
@@ -225,18 +214,9 @@ MAX_HEALTH = 30.0
 [node name="DamageNumberLocation" parent="HealthComponent" index="0"]
 position = Vector2(-0.5, -13.5)
 
-[node name="AnimationTree" type="AnimationTree" parent="."]
-tree_root = SubResource("AnimationNodeBlendTree_dn54a")
-advance_expression_base_node = NodePath("..")
-anim_player = NodePath("../AnimationPlayer")
-parameters/PlayerStates/conditions/idle = false
-parameters/PlayerStates/conditions/is_dashing = false
-parameters/PlayerStates/conditions/is_moving = false
-parameters/PlayerStates/conditions/throw = false
-parameters/PlayerStates/Dash/blend_position = 0
-parameters/PlayerStates/Idle/blend_position = Vector2(-0.00337076, -0.734043)
-parameters/PlayerStates/Run/blend_position = Vector2(-0.997753, 0)
-parameters/TimeScale/scale = 1.0
+[node name="BTPlayer" type="BTPlayer" parent="."]
+behavior_tree = ExtResource("6_qhrb0")
+blackboard_plan = SubResource("BlackboardPlan_y25k6")
 
 [editable path="HitboxComponent"]
 [editable path="HealthComponent"]

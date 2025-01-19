@@ -16,6 +16,9 @@ process_mode = 3
 script = ExtResource("1_y18lm")
 mob_scene = ExtResource("4_60a8s")
 
+[node name="Enemy" parent="." instance=ExtResource("4_60a8s")]
+position = Vector2(595, 468)
+
 [node name="Level" parent="." instance=ExtResource("2_1277r")]
 
 [node name="Player" parent="Level" instance=ExtResource("3_s7hny")]

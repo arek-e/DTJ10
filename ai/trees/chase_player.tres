@@ -23,7 +23,7 @@ direction_var = &"dir"
 script = ExtResource("1_2ut5x")
 target_position_var = &"pos"
 dir_var = &"dir"
-speed_var = 40
+speed_var = 300
 tolerance = 10
 
 [sub_resource type="BTRandomWait" id="BTRandomWait_k2p32"]
@@ -40,6 +40,9 @@ children = [SubResource("BTAction_xhs48"), SubResource("BTAction_irogu"), SubRes
 [sub_resource type="BTProbability" id="BTProbability_v83ca"]
 children = [SubResource("BTSequence_xgqya")]
 
+[sub_resource type="BTConsolePrint" id="BTConsolePrint_y20m2"]
+text = "Chasing player"
+
 [sub_resource type="BTAction" id="BTAction_aw2p2"]
 script = ExtResource("3_1777m")
 group = &"Player"
@@ -48,9 +51,8 @@ target_var = &"target"
 [sub_resource type="BTAction" id="BTAction_bucq7"]
 script = ExtResource("4_1ueug")
 target_var = &"target"
-dir_var = &"dir"
 speed_var = 500
-tolerance = 60
+tolerance = 20
 
 [sub_resource type="BBVariant" id="BBVariant_wgcq6"]
 type = 3
@@ -67,11 +69,8 @@ node = SubResource("BBNode_4rtvm")
 method = &"play_attack"
 args = Array[BBVariant]([SubResource("BBVariant_wgcq6")])
 
-[sub_resource type="BTWait" id="BTWait_4ga7w"]
-duration = 5.0
-
 [sub_resource type="BTSequence" id="BTSequence_iqhis"]
-children = [SubResource("BTAction_aw2p2"), SubResource("BTAction_bucq7"), SubResource("BTCallMethod_nqmc5"), SubResource("BTWait_4ga7w")]
+children = [SubResource("BTConsolePrint_y20m2"), SubResource("BTAction_aw2p2"), SubResource("BTAction_bucq7"), SubResource("BTCallMethod_nqmc5")]
 
 [sub_resource type="BTProbability" id="BTProbability_22pbv"]
 children = [SubResource("BTSequence_iqhis")]
