@@ -16,6 +16,10 @@ run/main_scene="res://game.tscn"
 config/features=PackedStringArray("4.3", "Forward Plus")
 config/icon="res://icon.svg"
 
+[autoload]
+
+DamageNumbers="*res://scenes/singeltons/DamageNumbers.gd"
+
 [editor]
 
 movie_writer/mjpeg_quality=1.0
