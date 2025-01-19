@@ -1,7 +1,7 @@
 [gd_scene load_steps=25 format=3 uid="uid://c22mrd8bbhmcp"]
 
 [ext_resource type="Script" path="res://scenes/player/player.gd" id="1_a6jbn"]
-[ext_resource type="Texture2D" uid="uid://bdpayy4qm6j6f" path="res://assets/player/Jester.png" id="2_i42md"]
+[ext_resource type="Texture2D" uid="uid://d1ij4yqnjywuf" path="res://assets/player/Jester.png" id="2_i42md"]
 [ext_resource type="AnimationNodeStateMachine" uid="uid://hdwbaek3pvnf" path="res://scenes/player/player_animation_state_tree.tres" id="3_0mica"]
 [ext_resource type="AudioStream" uid="uid://b0kupvwesecpt" path="res://assets/sounds/running-in-grass-6237.mp3" id="3_cc7qw"]
 [ext_resource type="AudioStream" uid="uid://dssl55i1622i3" path="res://assets/sounds/swoosh-sound-effect-for-fight-scenes-or-transitions-4-149887.mp3" id="3_iloln"]
@@ -246,9 +246,9 @@ _data = {
 [sub_resource type="AnimationNodeTimeScale" id="AnimationNodeTimeScale_qen4w"]
 
 [sub_resource type="AnimationNodeBlendTree" id="AnimationNodeBlendTree_p6gp4"]
-graph_offset = Vector2(-200.47, 28.3047)
+graph_offset = Vector2(-374.506, 96.1061)
 nodes/PlayerStates/node = ExtResource("3_0mica")
-nodes/PlayerStates/position = Vector2(140, 80)
+nodes/PlayerStates/position = Vector2(60, 120)
 nodes/TimeScale/node = SubResource("AnimationNodeTimeScale_qen4w")
 nodes/TimeScale/position = Vector2(400, 20)
 nodes/output/position = Vector2(600, 120)
@@ -279,7 +279,7 @@ scale_min = 0.5
 scale_max = 3.0
 color_ramp = SubResource("GradientTexture1D_emcs5")
 
-[node name="Player" type="CharacterBody2D"]
+[node name="Player" type="CharacterBody2D" groups=["Player"]]
 collision_mask = 30
 platform_on_leave = 2
 script = ExtResource("1_a6jbn")
@@ -297,7 +297,7 @@ position = Vector2(0, -13)
 scale = Vector2(3, 3)
 texture = ExtResource("2_i42md")
 hframes = 6
-vframes = 7
+vframes = 9
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 libraries = {
@@ -312,7 +312,7 @@ parameters/PlayerStates/conditions/idle = false
 parameters/PlayerStates/conditions/is_dashing = false
 parameters/PlayerStates/conditions/is_moving = false
 parameters/PlayerStates/conditions/throw = false
-parameters/PlayerStates/Dash/blend_position = -0.00107414
+parameters/PlayerStates/Dash/blend_position = 0
 parameters/PlayerStates/Idle/blend_position = Vector2(0.0224719, 0.00625002)
 parameters/PlayerStates/Run/blend_position = Vector2(-0.186517, -0.15625)
 parameters/TimeScale/scale = 1.0

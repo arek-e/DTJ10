@@ -1,17 +1,21 @@
-[gd_resource type="BehaviorTree" load_steps=10 format=3 uid="uid://mi7qmrmk8dtt"]
+[gd_resource type="BehaviorTree" load_steps=21 format=3 uid="uid://mi7qmrmk8dtt"]
 
 [ext_resource type="Script" path="res://ai/tasks/move_to_position.gd" id="1_2ut5x"]
 [ext_resource type="Script" path="res://ai/tasks/choose_random_position.gd" id="1_grht2"]
+[ext_resource type="Script" path="res://ai/tasks/find_target.gd" id="3_1777m"]
+[ext_resource type="Script" path="res://ai/tasks/move_to_target.gd" id="4_1ueug"]
 
 [sub_resource type="BlackboardPlan" id="BlackboardPlan_wphtb"]
-
-[sub_resource type="BTConsolePrint" id="BTConsolePrint_0poix"]
-text = "Random move"
+var/dir/name = &"dir"
+var/dir/type = 3
+var/dir/value = 0.0
+var/dir/hint = 0
+var/dir/hint_string = ""
 
 [sub_resource type="BTAction" id="BTAction_xhs48"]
 script = ExtResource("1_grht2")
-range_min_in_dir = 150.0
-range_max_in_dir = 500.0
+range_min_in_dir = 30.0
+range_max_in_dir = 150.0
 position_var = &"pos"
 direction_var = &"dir"
 
@@ -19,18 +23,61 @@ direction_var = &"dir"
 script = ExtResource("1_2ut5x")
 target_position_var = &"pos"
 dir_var = &"dir"
-speed_var = 300
+speed_var = 40
 tolerance = 10
 
-[sub_resource type="BTWait" id="BTWait_kbihc"]
-duration = 2.0
+[sub_resource type="BTRandomWait" id="BTRandomWait_k2p32"]
+max_duration = 4.0
+
+[sub_resource type="BTSequence" id="BTSequence_22t6p"]
+custom_name = "Idle sequence"
+children = [SubResource("BTRandomWait_k2p32")]
 
 [sub_resource type="BTSequence" id="BTSequence_xgqya"]
 custom_name = "Random move Sequence"
-children = [SubResource("BTConsolePrint_0poix"), SubResource("BTAction_xhs48"), SubResource("BTAction_irogu"), SubResource("BTWait_kbihc")]
+children = [SubResource("BTAction_xhs48"), SubResource("BTAction_irogu"), SubResource("BTSequence_22t6p")]
+
+[sub_resource type="BTProbability" id="BTProbability_v83ca"]
+children = [SubResource("BTSequence_xgqya")]
+
+[sub_resource type="BTAction" id="BTAction_aw2p2"]
+script = ExtResource("3_1777m")
+group = &"Player"
+target_var = &"target"
+
+[sub_resource type="BTAction" id="BTAction_bucq7"]
+script = ExtResource("4_1ueug")
+target_var = &"target"
+dir_var = &"dir"
+speed_var = 500
+tolerance = 60
+
+[sub_resource type="BBVariant" id="BBVariant_wgcq6"]
+type = 3
+value_source = 1
+variable = &"dir"
+resource_name = "$dir"
+
+[sub_resource type="BBNode" id="BBNode_4rtvm"]
+saved_value = NodePath(".")
+resource_name = "."
+
+[sub_resource type="BTCallMethod" id="BTCallMethod_nqmc5"]
+node = SubResource("BBNode_4rtvm")
+method = &"play_attack"
+args = Array[BBVariant]([SubResource("BBVariant_wgcq6")])
+
+[sub_resource type="BTWait" id="BTWait_4ga7w"]
+duration = 5.0
+
+[sub_resource type="BTSequence" id="BTSequence_iqhis"]
+children = [SubResource("BTAction_aw2p2"), SubResource("BTAction_bucq7"), SubResource("BTCallMethod_nqmc5"), SubResource("BTWait_4ga7w")]
+
+[sub_resource type="BTProbability" id="BTProbability_22pbv"]
+children = [SubResource("BTSequence_iqhis")]
 
 [sub_resource type="BTSelector" id="BTSelector_5tjbi"]
-children = [SubResource("BTSequence_xgqya")]
+children = [SubResource("BTProbability_v83ca"), SubResource("BTProbability_22pbv")]
 
 [resource]
 blackboard_plan = SubResource("BlackboardPlan_wphtb")
