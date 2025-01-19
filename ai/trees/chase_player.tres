@@ -1,4 +1,4 @@
-[gd_resource type="BehaviorTree" load_steps=21 format=3 uid="uid://mi7qmrmk8dtt"]
+[gd_resource type="BehaviorTree" load_steps=20 format=3 uid="uid://mi7qmrmk8dtt"]
 
 [ext_resource type="Script" path="res://ai/tasks/move_to_position.gd" id="1_2ut5x"]
 [ext_resource type="Script" path="res://ai/tasks/choose_random_position.gd" id="1_grht2"]
@@ -40,9 +40,6 @@ children = [SubResource("BTAction_xhs48"), SubResource("BTAction_irogu"), SubRes
 [sub_resource type="BTProbability" id="BTProbability_v83ca"]
 children = [SubResource("BTSequence_xgqya")]
 
-[sub_resource type="BTConsolePrint" id="BTConsolePrint_y20m2"]
-text = "Chasing player"
-
 [sub_resource type="BTAction" id="BTAction_aw2p2"]
 script = ExtResource("3_1777m")
 group = &"Player"
@@ -52,13 +49,7 @@ target_var = &"target"
 script = ExtResource("4_1ueug")
 target_var = &"target"
 speed_var = 500
-tolerance = 20
-
-[sub_resource type="BBVariant" id="BBVariant_wgcq6"]
-type = 3
-value_source = 1
-variable = &"dir"
-resource_name = "$dir"
+tolerance = 30
 
 [sub_resource type="BBNode" id="BBNode_4rtvm"]
 saved_value = NodePath(".")
@@ -67,10 +58,12 @@ resource_name = "."
 [sub_resource type="BTCallMethod" id="BTCallMethod_nqmc5"]
 node = SubResource("BBNode_4rtvm")
 method = &"play_attack"
-args = Array[BBVariant]([SubResource("BBVariant_wgcq6")])
+
+[sub_resource type="BTWait" id="BTWait_ximgt"]
+duration = 0.5
 
 [sub_resource type="BTSequence" id="BTSequence_iqhis"]
-children = [SubResource("BTConsolePrint_y20m2"), SubResource("BTAction_aw2p2"), SubResource("BTAction_bucq7"), SubResource("BTCallMethod_nqmc5")]
+children = [SubResource("BTAction_aw2p2"), SubResource("BTAction_bucq7"), SubResource("BTCallMethod_nqmc5"), SubResource("BTWait_ximgt")]
 
 [sub_resource type="BTProbability" id="BTProbability_22pbv"]
 children = [SubResource("BTSequence_iqhis")]
