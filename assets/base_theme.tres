@@ -1,6 +1,8 @@
-[gd_resource type="Theme" load_steps=2 format=3 uid="uid://ib0twwy428v1"]
+[gd_resource type="Theme" load_steps=2 format=3 uid="uid://diq6xsgb2cuir"]
 
 [ext_resource type="FontFile" uid="uid://co3yqr1ntgj0h" path="res://assets/fonts/NormalFont.ttf" id="1_sdbgf"]
 
 [resource]
+default_base_scale = 8.5
 default_font = ExtResource("1_sdbgf")
+default_font_size = 24

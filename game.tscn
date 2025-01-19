@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" path="res://game.gd" id="1_y18lm"]
 [ext_resource type="Script" path="res://scenes/level_loader.gd" id="3_bite3"]
-[ext_resource type="Theme" uid="uid://ib0twwy428v1" path="res://assets/base_theme.tres" id="5_1d72q"]
+[ext_resource type="Theme" uid="uid://diq6xsgb2cuir" path="res://assets/base_theme.tres" id="5_1d72q"]
 
 [node name="Game" type="Node"]
 process_mode = 3

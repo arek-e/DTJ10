@@ -1,0 +1,46 @@
+[gd_scene load_steps=3 format=3 uid="uid://cclfbs5atf3f"]
+
+[ext_resource type="Theme" uid="uid://diq6xsgb2cuir" path="res://assets/base_theme.tres" id="1_n1rwa"]
+[ext_resource type="Script" path="res://scenes/player/game_over_screen.gd" id="1_ydec8"]
+
+[node name="Gameover" type="CanvasLayer"]
+script = ExtResource("1_ydec8")
+
+[node name="Label" type="Label" parent="."]
+offset_left = 419.0
+offset_top = 247.0
+offset_right = 736.0
+offset_bottom = 316.0
+theme = ExtResource("1_n1rwa")
+text = "                     GAME OVER!
+HOUSE      ALWAYS      WINS"
+
+[node name="Label2" type="Label" parent="."]
+offset_left = 792.0
+offset_top = 508.0
+offset_right = 1131.0
+offset_bottom = 613.0
+theme = ExtResource("1_n1rwa")
+text = "MADE BY:
+- ALEXANDER -> AREK-E
+- DAVID -> DAVJEP"
+
+[node name="Quit" type="Button" parent="."]
+texture_filter = 1
+offset_left = 521.0
+offset_top = 396.0
+offset_right = 590.0
+offset_bottom = 437.0
+theme = ExtResource("1_n1rwa")
+text = "QUIT"
+
+[node name="Retry" type="Button" parent="."]
+offset_left = 512.0
+offset_top = 342.0
+offset_right = 613.0
+offset_bottom = 383.0
+theme = ExtResource("1_n1rwa")
+text = "AGAIN"
+
+[connection signal="pressed" from="Quit" to="." method="_on_quit_pressed"]
+[connection signal="pressed" from="Retry" to="." method="_on_retry_pressed"]
