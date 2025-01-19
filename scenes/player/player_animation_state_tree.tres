@@ -1,6 +1,19 @@
-[gd_resource type="AnimationNodeStateMachine" load_steps=15 format=3 uid="uid://hdwbaek3pvnf"]
+[gd_resource type="AnimationNodeStateMachine" load_steps=22 format=3 uid="uid://hdwbaek3pvnf"]
 
 [ext_resource type="AnimationNodeBlendSpace2D" uid="uid://dm6ew31h0ig52" path="res://scenes/player/player_run_blend.tres" id="1_dvqvm"]
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_afutw"]
+animation = &"dash_right"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_32wc2"]
+animation = &"dash_left"
+
+[sub_resource type="AnimationNodeBlendSpace1D" id="AnimationNodeBlendSpace1D_vxkff"]
+blend_point_0/node = SubResource("AnimationNodeAnimation_afutw")
+blend_point_0/pos = 1.0
+blend_point_1/node = SubResource("AnimationNodeAnimation_32wc2")
+blend_point_1/pos = -1.0
+value_label = "x"
 
 [sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_1w38i"]
 animation = &"Idle"
@@ -57,14 +70,32 @@ advance_condition = &"idle"
 advance_mode = 2
 advance_condition = &"throw"
 
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_0ehr7"]
+advance_mode = 2
+advance_condition = &"is_dashing"
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_pnd8l"]
+switch_mode = 2
+advance_mode = 2
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_dtyum"]
+switch_mode = 2
+advance_mode = 2
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_jcobw"]
+advance_mode = 2
+advance_condition = &"is_dashing"
+
 [resource]
+states/Dash/node = SubResource("AnimationNodeBlendSpace1D_vxkff")
+states/Dash/position = Vector2(177, 156)
 states/End/position = Vector2(686, 118)
 states/Idle/node = SubResource("AnimationNodeBlendSpace2D_2t8pc")
 states/Idle/position = Vector2(371, 138)
 states/Run/node = ExtResource("1_dvqvm")
 states/Run/position = Vector2(371, 37)
-states/Start/position = Vector2(186, 138)
+states/Start/position = Vector2(72, 37)
 states/Throw/node = SubResource("AnimationNodeAnimation_qy0il")
 states/Throw/position = Vector2(574, 68)
-transitions = ["Start", "Run", SubResource("AnimationNodeStateMachineTransition_1m2bo"), "Run", "Idle", SubResource("AnimationNodeStateMachineTransition_2gbhc"), "Idle", "Run", SubResource("AnimationNodeStateMachineTransition_5ij8d"), "Run", "Throw", SubResource("AnimationNodeStateMachineTransition_7fj04"), "Throw", "Run", SubResource("AnimationNodeStateMachineTransition_h2swm"), "Throw", "Idle", SubResource("AnimationNodeStateMachineTransition_db10y"), "Idle", "Throw", SubResource("AnimationNodeStateMachineTransition_xq118")]
+transitions = ["Start", "Run", SubResource("AnimationNodeStateMachineTransition_1m2bo"), "Run", "Idle", SubResource("AnimationNodeStateMachineTransition_2gbhc"), "Idle", "Run", SubResource("AnimationNodeStateMachineTransition_5ij8d"), "Run", "Throw", SubResource("AnimationNodeStateMachineTransition_7fj04"), "Throw", "Run", SubResource("AnimationNodeStateMachineTransition_h2swm"), "Throw", "Idle", SubResource("AnimationNodeStateMachineTransition_db10y"), "Idle", "Throw", SubResource("AnimationNodeStateMachineTransition_xq118"), "Run", "Dash", SubResource("AnimationNodeStateMachineTransition_0ehr7"), "Dash", "Run", SubResource("AnimationNodeStateMachineTransition_pnd8l"), "Dash", "Idle", SubResource("AnimationNodeStateMachineTransition_dtyum"), "Idle", "Dash", SubResource("AnimationNodeStateMachineTransition_jcobw")]
 graph_offset = Vector2(-155, -25)
